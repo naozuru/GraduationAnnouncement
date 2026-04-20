@@ -1,92 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graduation Announcement</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graduation Announcement</title>
 
-  <!-- FAVICON -->
-  <link rel="icon" type="image/png" href="tmi_logo.png">
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="tmi_logo.png" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
-</head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-
-  <!-- =========================
+  <body>
+    <!-- =========================
        LOGIN PAGE
   ========================== -->
-  <div class="container" id="loginPage">
-
-    <div class="header">
-      <img src="tmi_logo.png" alt="School Logo" class="logo">
-      <h1>Graduation Announcement</h1>
-      <h3>Senior High School</h3>
-      <h4>Tunas Mekar Indonesia</h4>
-    </div>
-
-    <h2>Check Your Result</h2>
-    <p>Please login using your NISN and NIS</p>
-
-    <form id="loginForm">
-      <input type="text" id="nisn" placeholder="Enter NISN" required>
-      <input type="password" id="nis" placeholder="Enter NIS" required>
-      <button type="submit">Check Result</button>
-    </form>
-
-    <p id="errorMsg"></p>
-  </div>
-
-
-  <!-- =========================
-       RESULT PAGE
-  ========================== -->
-  <div class="container hidden" id="resultPage">
-
-    <div class="header">
-      <img src="tmi_logo.png" alt="School Logo" class="logo">
-      <h1>Graduation Announcement</h1>
-      <h3>Senior High School</h3>
-      <h4>Tunas Mekar Indonesia</h4>
-    </div>
-
-    <h2>Student Result</h2>
-
-    <!-- CONTENT HORIZONTAL -->
-    <div class="result-content">
-
-      <!-- FOTO -->
-      <div class="left">
-        <img id="studentPhoto" src="" alt="Student Photo">
+    <div class="container" id="loginPage">
+      <div class="header">
+        <img src="tmi_logo.png" alt="School Logo" class="logo" />
+        <h1>Graduation Announcement</h1>
+        <h3>Senior High School</h3>
+        <h4>Tunas Mekar Indonesia</h4>
       </div>
 
-      <!-- DATA -->
-      <div class="right">
-        <div class="data">
-          <p><strong>Name:</strong> <span id="name"></span></p>
-          <p><strong>NISN:</strong> <span id="nisnResult"></span></p>
-          <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+      <h2>Check Your Result</h2>
+      <p>Please login using your NISN and NIS</p>
+
+      <form id="loginForm">
+        <input type="text" id="nisn" placeholder="Enter NISN" required />
+        <input type="password" id="nis" placeholder="Enter NIS" required />
+        <button type="submit">Check Result</button>
+      </form>
+
+      <p id="errorMsg"></p>
+    </div>
+
+    <!-- =========================
+       RESULT PAGE
+  ========================== -->
+    <div class="container hidden" id="resultPage">
+      <div class="header">
+        <img src="tmi_logo.png" alt="School Logo" class="logo" />
+        <h1>Graduation Announcement</h1>
+        <h3>Senior High School</h3>
+        <h4>Tunas Mekar Indonesia</h4>
+      </div>
+
+      <h2>Student Result</h2>
+
+      <!-- CONTENT HORIZONTAL -->
+      <div class="result-content">
+        <!-- FOTO -->
+        <div class="left">
+          <img id="studentPhoto" src="" alt="Student Photo" />
+        </div>
+
+        <!-- DATA -->
+        <div class="right">
+          <div class="data">
+            <p><strong>Name:</strong> <span id="name"></span></p>
+            <p><strong>NISN:</strong> <span id="nisnResult"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+          </div>
         </div>
       </div>
 
+      <!-- STATUS -->
+      <div id="statusBox" class="status">
+        <h3 id="statusTitle"></h3>
+        <p id="statusMessage"></p>
+      </div>
+
+      <button type="button" onclick="logout()">Back</button>
     </div>
 
-    <!-- STATUS -->
-    <div id="statusBox" class="status">
-      <h3 id="statusTitle"></h3>
-      <p id="statusMessage"></p>
-    </div>
-
-    <button onclick="logout()">Back</button>
-
-  </div>
-
-
-  <!-- =========================
+    <!-- =========================
        JAVASCRIPT
   ========================== -->
-  <script src="script.js"></script>
-
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -93,8 +93,9 @@ function showResult(data) {
   // foto (dengan fallback kalau error)
   photoEl.src = data.foto;
   photoEl.onerror = function () {
-    photoEl.src = "https://via.placeholder.com/150?text=No+Photo";
-  };
+  photoEl.onerror = null; // 🔥 penting: stop looping
+  photoEl.src = "https://via.placeholder.com/150?text=No+Photo";
+};
 
   // reset status class
   statusBox.classList.remove("pass", "fail");

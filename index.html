@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graduation Announcement - Tunas Mekar Indonesia</title>
+  <title>Graduation Announcement</title>
+
+  <!-- FAVICON -->
   <link rel="icon" type="image/png" href="tmi_logo.png">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <!-- LOGIN PAGE -->
+  <!-- =========================
+       LOGIN PAGE
+  ========================== -->
   <div class="container" id="loginPage">
 
     <div class="header">
@@ -32,7 +39,9 @@
   </div>
 
 
-  <!-- RESULT PAGE -->
+  <!-- =========================
+       RESULT PAGE
+  ========================== -->
   <div class="container hidden" id="resultPage">
 
     <div class="header">
@@ -44,22 +53,26 @@
 
     <h2>Student Result</h2>
 
+    <!-- CONTENT HORIZONTAL -->
     <div class="result-content">
-  
-  <div class="left">
-    <img id="studentPhoto" src="" alt="Student Photo">
-  </div>
 
-  <div class="right">
-    <div class="data">
-      <p><strong>Name:</strong> <span id="name"></span></p>
-      <p><strong>NISN:</strong> <span id="nisnResult"></span></p>
-      <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+      <!-- FOTO -->
+      <div class="left">
+        <img id="studentPhoto" src="" alt="Student Photo">
+      </div>
+
+      <!-- DATA -->
+      <div class="right">
+        <div class="data">
+          <p><strong>Name:</strong> <span id="name"></span></p>
+          <p><strong>NISN:</strong> <span id="nisnResult"></span></p>
+          <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
+        </div>
+      </div>
+
     </div>
-  </div>
 
-</div>
-
+    <!-- STATUS -->
     <div id="statusBox" class="status">
       <h3 id="statusTitle"></h3>
       <p id="statusMessage"></p>
@@ -69,6 +82,11 @@
 
   </div>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
   <script src="script.js"></script>
+
 </body>
 </html>

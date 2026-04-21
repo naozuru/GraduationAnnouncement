@@ -373,3 +373,113 @@ button:hover {
 .status-fail {
   color: #dc2626; /* merah */
 }
+
+/* =========================
+   🎮 MINI GAME AREA
+========================= */
+.game-area {
+  margin-top: 25px;
+  height: 180px;
+  position: relative;
+
+  border-radius: 15px;
+
+  /* biar nyatu sama tema emerald */
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+
+  overflow: hidden;
+  border: 2px dashed #10b981;
+}
+
+/* TEXT GAME */
+#gameText {
+  font-size: 14px;
+  color: #065f46;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* =========================
+   🎯 CIRCLE TARGET
+========================= */
+#circle {
+  width: 55px;
+  height: 55px;
+
+  background: #10b981;
+  border-radius: 50%;
+
+  position: absolute;
+  cursor: pointer;
+
+  display: none;
+
+  /* efek biar hidup */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+  transition: transform 0.2s, background 0.2s;
+}
+
+/* hover efek */
+#circle:hover {
+  transform: scale(1.2);
+  background: #059669;
+}
+
+/* klik efek */
+#circle:active {
+  transform: scale(0.9);
+}
+
+/* =========================
+   ✨ OPTIONAL ANIMATION
+========================= */
+@keyframes pop {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#circle {
+  animation: pop 0.2s ease;
+}
+
+#circle:hover {
+  box-shadow: 0 0 20px rgba(16,185,129,0.7);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+#circle {
+  animation: pulse 1s infinite;
+}
+
+/* =========================
+   TIMER DI KANAN ATAS GAME
+========================= */
+.timer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  background: #111;
+  color: #fff;
+
+  padding: 6px 12px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  z-index: 10;
+}

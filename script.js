@@ -1,126 +1,108 @@
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbxPd0cmbxvSd9IheITj4S7J0M652fhMOWoMkUzcio8-sv1BYXSRB4mWaF4czMd4pU4C/exec";
 
-/* =========================
-   CONFIG (GANTI URL API)
-========================= */
-const API_URL = "https://script.google.com/macros/s/AKfycbxPd0cmbxvSd9IheITj4S7J0M652fhMOWoMkUzcio8-sv1BYXSRB4mWaF4czMd4pU4C/exec";
-
-
-/* =========================
-   ELEMENT
-========================= */
 const loginForm = document.getElementById("loginForm");
 const loginPage = document.getElementById("loginPage");
 const resultPage = document.getElementById("resultPage");
 const errorMsg = document.getElementById("errorMsg");
 
-// RESULT ELEMENTS
 const nameEl = document.getElementById("name");
 const nisnEl = document.getElementById("nisnResult");
 const dobEl = document.getElementById("dob");
 const photoEl = document.getElementById("studentPhoto");
+const statusText = document.getElementById("statusText");
 
-const statusBox = document.getElementById("statusBox");
-const statusTitle = document.getElementById("statusTitle");
-const statusMessage = document.getElementById("statusMessage");
+/* MODAL */
+const modal = document.getElementById("resultModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalName = document.getElementById("modalName");
+const modalMessage = document.getElementById("modalMessage");
 
-
-/* =========================
-   LOGIN SUBMIT
-========================= */
 loginForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const nisn = document.getElementById("nisn").value.trim();
   const nis = document.getElementById("nis").value.trim();
 
-  // VALIDASI
   if (!nisn || !nis) {
-    errorMsg.textContent = "Please fill in all fields!";
+    errorMsg.textContent = "Please fill all fields!";
     return;
   }
 
-  errorMsg.style.color = "#333";
-  errorMsg.textContent = "Checking data...";
+  errorMsg.textContent = "Checking...";
 
   try {
-    const response = await fetch(`${API_URL}?nisn=${nisn}&nis=${nis}`);
-    const data = await response.json();
+    const res = await fetch(`${API_URL}?nisn=${nisn}&nis=${nis}`);
+    const data = await res.json();
 
-    // ERROR DARI API
     if (data.status === "error") {
-      errorMsg.style.color = "#dc2626";
-      errorMsg.textContent = "Data not found or wrong password!";
+      errorMsg.textContent = "Data not found!";
       return;
     }
 
-    // SUCCESS
     showResult(data);
-
-  } catch (error) {
-    errorMsg.style.color = "#dc2626";
-    errorMsg.textContent = "Connection error. Please try again!";
-    console.error(error);
+  } catch (err) {
+    errorMsg.textContent = "Connection error!";
   }
 });
 
-
-/* =========================
-   FORMAT DATE (DD/MM/YYYY)
-========================= */
-function formatDate(dateString) {
-  const date = new Date(dateString);
-
-  // kalau invalid (kadang dari spreadsheet string aneh)
-  if (isNaN(date)) return dateString;
-
-  return date.toLocaleDateString("en-GB"); // dd/mm/yyyy
-}
-
-
-/* =========================
-   TAMPILKAN RESULT
-========================= */
 function showResult(data) {
-  // pindah halaman
+  // tampilkan halaman result
   loginPage.classList.add("hidden");
   resultPage.classList.remove("hidden");
 
-  // isi data
+  // isi data siswa
   nameEl.textContent = data.nama;
   nisnEl.textContent = data.nisn;
   dobEl.textContent = formatDate(data.tanggal_lahir);
+  statusText.classList.remove("status-pass", "status-fail");
 
-  // foto (dengan fallback kalau error)
+  if (data.kelulusan.toLowerCase() === "lulus") {
+    statusText.textContent = "PASS";
+    statusText.classList.add("status-pass");
+  } else {
+    statusText.textContent = "CONDITIONAL PASS";
+    statusText.classList.add("status-fail");
+  }
+
   photoEl.src = data.foto;
   photoEl.onerror = function () {
-  photoEl.onerror = null; // 🔥 penting: stop looping
-  photoEl.src = "https://via.placeholder.com/150?text=No+Photo";
-};
+    photoEl.onerror = null;
+    photoEl.src = "https://via.placeholder.com/150";
+  };
 
-  // reset status class
-  statusBox.classList.remove("pass", "fail");
+  // 🔥 DELAY KECIL BIAR HALAMAN MUNCUL DULU
+  setTimeout(() => {
+    showModal(data);
+  }, 300);
+}
 
-  // status kelulusan
+function showModal(data) {
+  modal.classList.remove("hidden");
+
+  modalName.textContent = data.nama;
+
+  modal.classList.remove("pass", "fail");
+
   if (data.kelulusan.toLowerCase() === "lulus") {
-    statusBox.classList.add("pass");
+    modal.classList.add("pass");
 
-    statusTitle.textContent = "🎓 Congratulations!";
-    statusMessage.textContent =
-      "Based on the academic evaluation and final assessment, you are declared to have successfully completed your studies. We are proud of your achievement and wish you continued success in your future endeavors.";
-
+    modalTitle.textContent = "🎓 Congratulations!";
+    modalMessage.textContent =
+      "You have successfully graduated. We are proud of your achievement and wish you success in your future journey.";
   } else {
-    statusBox.classList.add("fail");
+    modal.classList.add("fail");
 
-    statusTitle.textContent = "Result Notification";
-    statusMessage.textContent =
-      "Based on the academic evaluation, you have not met the required criteria for graduation at this time. Please stay motivated and continue striving for improvement. Your journey does not end here.";
+    modalTitle.textContent = "Conditional Graduation";
+    modalMessage.textContent =
+      "You are declared to have conditionally passed. To be officially recognized as a graduate, you are required to complete all outstanding requirements set by the school. Please contact the school administration for further guidance.";
   }
 }
 
+function closeModal() {
+  modal.classList.add("hidden");
+}
 
-/* =========================
-   LOGOUT / BACK
-========================= */
 function logout() {
   resultPage.classList.add("hidden");
   loginPage.classList.remove("hidden");
@@ -129,13 +111,33 @@ function logout() {
   errorMsg.textContent = "";
 }
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  if (isNaN(date)) return dateString;
+  return date.toLocaleDateString("en-GB");
+}
 
-/* =========================
-   OPTIONAL: ENTER KEY FIX
-========================= */
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" && !resultPage.classList.contains("hidden")) {
-    // jika di halaman result, enter tidak submit ulang
-    e.preventDefault();
-  }
-});
+function launchConfetti() {
+  const duration = 2 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 60,
+      spread: 70,
+      origin: { x: 0 },
+    });
+
+    confetti({
+      particleCount: 5,
+      angle: 120,
+      spread: 70,
+      origin: { x: 1 },
+    });
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  })();
+}

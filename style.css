@@ -483,3 +483,58 @@ button:hover {
   box-shadow: 0 5px 10px rgba(0,0,0,0.3);
   z-index: 10;
 }
+
+/* =========================
+   WELCOME MODAL
+========================= */
+.welcome-content {
+  max-width: 650px;
+  text-align: center;
+
+  background: linear-gradient(
+    to bottom,
+    #ecfdf5,
+    #ffffff
+  );
+
+  border-top: 10px solid #10b981;
+}
+
+/* LOGO */
+.welcome-logo {
+  width: 90px;
+  margin-bottom: 15px;
+}
+
+/* TITLE */
+.welcome-title {
+  font-size: 30px;
+  color: #065f46;
+  margin-bottom: 20px;
+}
+
+/* MESSAGE */
+.welcome-message {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #444;
+
+  margin-bottom: 25px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .welcome-content {
+    padding: 30px 22px;
+  }
+
+  .welcome-title {
+    font-size: 24px;
+  }
+
+  .welcome-message {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}

@@ -306,3 +306,12 @@ function launchConfetti() {
     }
   })();
 }
+
+/* =========================
+   WELCOME MODAL
+========================= */
+const welcomeModal = document.getElementById("welcomeModal");
+
+function closeWelcomeModal() {
+  welcomeModal.classList.add("hidden");
+}
